@@ -1,0 +1,57 @@
+import React from 'react';
+import Card from '@material-ui/core/Card';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import Typography from '@material-ui/core/Typography';
+import Rating from '@material-ui/lab/Rating';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import IconButton from '@material-ui/core/IconButton';
+
+const playmovie = (elem) => {
+	document.location.href = '/info?movie&' + elem.id;
+}
+
+export default function PutFilm(film, lastFilmElementRef) {
+	return (
+		<div className="display-film">
+			{ film.map((elem, index) => {
+				if (elem === null) {
+					return ('');
+				}
+				var overview = '';
+				if (elem.overview === '' || elem.overview === undefined || elem.overview === null) {
+					overview = '';
+				} else {
+					overview = elem.overview.substr(0, 100);
+					overview[overview.length - 1] !== '.' ? overview = overview + " ..." : overview = overview + '';
+				}
+				if (elem.poster_path === null) {
+					return ('');
+				} else {
+					return (
+						<Card ref={lastFilmElementRef} key={ index } className="root">
+							<CardHeader
+							title={ elem.title !== undefined ? elem.title : elem.original_name }
+							subheader= { elem.release_date }
+							className="card"
+							/>
+							<img className="media" src={"http://image.tmdb.org/t/p/w185/" + elem.poster_path} alt="" />
+							<CardContent>
+								<Typography variant="body2" color="textSecondary" component="p">
+									{ overview }
+								</Typography>
+							</CardContent>
+							<CardActions disableSpacing className="button-card">
+								<IconButton onClick={ e => playmovie(elem) } aria-label="add to favorites">
+									<PlayCircleOutlineIcon />
+								</IconButton>
+								<Rating name="read-only" precision={0.5} value={elem.vote_average / 2 } size="small" readOnly />
+							</CardActions>
+						</Card>
+					)
+				}
+			})}
+		</div>
+	)
+}
