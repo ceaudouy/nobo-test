@@ -5,13 +5,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-	top: 'auto',
-	bottom: 0,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
+	appBar: {
+		top: 'auto',
+		bottom: 0,
+	  },
   title: {
 	  position: 'relative',
 	  marginLeft: 'auto',
@@ -23,15 +20,15 @@ export default function ButtonAppBar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
+	<React.Fragment>
+      <AppBar position="fixed" color="primary" className={classes.appBar}>
         <Toolbar>
-          <Typography variant="subtitle2" className={classes.title}>
- 				Test realised by Cédric AUDOUY
-          </Typography>
+			<Typography variant="subtitle2" className={classes.title}>
+ 				Test realized by Cédric AUDOUY
+          	</Typography>
         </Toolbar>
       </AppBar>
-    </div>
+    </React.Fragment>
   );
 }
 

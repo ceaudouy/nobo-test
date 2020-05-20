@@ -3,11 +3,20 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 import FetchAllMovies from './fetch';
 import PutFilm from './putFilm';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+	ctn: {
+		marginTop: '70px',
+	},
+}))
+
 
 export default function ListFilm() {
 	const [ pageNumber, setPageNumber ] = useState(1);
 	const langue = localStorage.getItem('langue') === null ? 'fr' : localStorage.getItem('langue');
 	const query = 'https://api.themoviedb.org/3/search/movie?api_key=b936c3df071b03229069cfcbe5276410&language=' + langue  + '&&include_adult=false&sort_by=popularity.desc&query='+ localStorage.getItem('search') + '&page=';
+	const classes = useStyles();
 	
 	const {
 		film,
@@ -30,7 +39,7 @@ export default function ListFilm() {
 	return (
 		<div>
 			<React.Fragment>
-				<Container fixed>
+				<Container fixed className={classes.ctn}>
 					<Typography component="div" className="list-film" >
 						{ PutFilm(film, lastFilmElementRef) }
 						<div className="loading">{loading && 'Loading...'}</div>
